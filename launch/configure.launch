@@ -1,0 +1,7 @@
+<launch>
+    <arg name="port" default="">
+	<node pkg="pozyx" name="setup_anchors" type="setup_anchors.py">
+         <rosparam file="$(find umd_pozyx)/cfg/anchor_tags.yaml"/>
+         <param name="port" value="$(arg port)">
+	</node>
+</launch>

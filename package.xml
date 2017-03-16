@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+  <name>pozyx</name>
+  <version>1.0.0</version>
+  <description>Pozyx system integration in ROS</description>
+  <maintainer email="alexis.paques@gmail.com">Alexis Paques</maintainer>
+  <author email="alexis.paques@gmail.com">Alexis Paques</author>
+  <license>GPLv3</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <export>
+  </export>
+</package>

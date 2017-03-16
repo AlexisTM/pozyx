@@ -1,0 +1,12 @@
+<launch>
+    <arg name="destination" default="0x6042">
+    <arg name="remote" default="None">
+    <arg name="port" default="">
+    <arg name="algorithm" default="2">
+    <node pkg="pozyx" name="pozyx_range" type="range.py">
+        <param name="destination" value="$(arg destination)">
+        <param name="remote" value="$(arg remote)">
+        <param name="port" value="$(arg port)">
+        <param name="algorithm" value="$(arg algorithm)">
+    </node>
+</launch>

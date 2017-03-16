@@ -1,0 +1,22 @@
+<launch>
+    <arg name="destination" default="0x6042">
+    <arg name="remote" default="None">
+    <arg name="port" default="/dev/ttyACM0">
+    <arg name="algorithm" default="2">
+    <arg name="heigth" default="100"> 
+    <node pkg="pozyx" name="pose2D_pozyx" type="pose2D.py">
+	<!--
+        Algorithm value 
+        POZYX_POS_ALG_UWB_ONLY = 0 
+        POZYX_POS_ALG_TRACKING = 1 // Not implemented in v1.0
+        POZYX_POS_ALG_LS = 2 // best
+
+        Height in mm
+    -->
+        <param name="destination" value="$(arg destination)">
+        <param name="heigth" value="$(arg heigth)">
+        <param name="remote" value="$(arg remote)">
+        <param name="port" value="$(arg port)">
+        <param name="algorithm" value="$(arg algorithm)">
+    </node>
+</launch>

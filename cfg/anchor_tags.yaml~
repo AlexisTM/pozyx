@@ -1,0 +1,21 @@
+---
+# Anchor position in mm
+# address in hex form
+# flag = 1 for anchors
+#        2 for tags
+anchors:
+  - position: [450, 20, 650]
+    address: 0x6033
+    flag: 1
+  - position: [7400, 0, 1850]
+    address: 0x6042
+    flag: 1
+  - position: [8300, 3550, 1780]
+    address: 0x607E
+    flag: 1
+  - position: [20, 2300, 1200]
+    address: 0x6038
+    flag: 1
+
+tags:
+  addresses: []
