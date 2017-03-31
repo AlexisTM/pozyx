@@ -3,7 +3,9 @@
     <arg name="remote" default="None">
     <arg name="port" default="/dev/ttyACM0">
     <arg name="algorithm" default="2">
-    <node pkg="pozyx" name="pose3D_pozyx" type="pose3D.py">
+    <arg name="posehz" default="2">
+    <arg name="imuhz" default="100"> 
+    <node pkg="pozyx" name="pose3D_pozyx" type="pose3D_IMU.py">
     <!--
         Algorithm value 
         POZYX_POS_ALG_UWB_ONLY = 0 
@@ -16,5 +18,7 @@
         <param name="remote" value="$(arg remote)">
         <param name="port" value="$(arg port)">
         <param name="algorithm" value="$(arg algorithm)">
+        <param name="imuhz" value="$(arg imuhz)">
+        <param name="posehz" value="$(arg posehz)">
     </node>
 </launch>

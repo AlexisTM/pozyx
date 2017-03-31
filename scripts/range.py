@@ -17,7 +17,6 @@ def range_publisher():
         range_pub = rospy.Publisher('pozyx/range', Range, queue_size=1)
         serial_port = rospy.get_param("port", pypozyx.get_serial_ports()[0].device)
         local_device = pypozyx.PozyxSerial(serial_port)
-        algorithm =  rospy.get_param("algorithm", 0)
         remote =  rospy.get_param("remote", None) # From where, None is local
         destination =  rospy.get_param("destination", 0x6042) # To where 
     except:

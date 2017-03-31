@@ -11,13 +11,8 @@ Author : Alexis PAQUES (@AlexisTM)
 import pypozyx
 import rospy
 from geometry_msgs.msg import Point, Vector3, Pose, Quaternion, PoseWithCovarianceStamped
-from std_msgs.msg import Int16 
 from sensor_msgs.msg import MagneticField, Imu
 from threading import Thread, Lock
-
-def height_cb(msg):
-    global height
-    height = msg.data
 
 def imu_publisher():
     global pozyx_sensors
@@ -73,14 +68,14 @@ def coordinate_publisher():
         # Remote (=Null for self)
 
         lock.acquire()
-        local_device.doPositioning(pozyx_coords, pypozyx.POZYX_2D, height, algorithm, remote_id=remote)
+        local_device.doPositioning(pozyx_coords, pypozyx.POZYX_3D, algorithm=algorithm, remote_id=remote)
         local_device.getPositionError(pozyx_coords_err, remote)
         lock.release()
 
         now_stamp = rospy.Time.now()
         ros_pose.header.stamp = now_stamp
         # Pozyx comes in mm, ros in m
-        ros_pose.pose.pose.position = Point(float(pozyx_coords.x)/1000.0, float(pozyx_coords.y)/1000.0, float(height)/1000.0)
+        ros_pose.pose.pose.position = Point(float(pozyx_coords.x)/1000.0, float(pozyx_coords.y)/1000.0, float(pozyx_coords.z)/1000.0)
         ros_pose.pose.covariance = [ float(pozyx_coords_err.x)/1000.0 , float(pozyx_coords_err.xy)/1000.0, float(pozyx_coords_err.xz)/1000.0, 0,0,0,
                                      float(pozyx_coords_err.xy)/1000.0, float(pozyx_coords_err.y)/1000.0 , float(pozyx_coords_err.yz)/1000.0, 0,0,0,
                                      float(pozyx_coords_err.xz)/1000.0, float(pozyx_coords_err.yz)/1000.0, float(pozyx_coords_err.z)/1000.0 , 0,0,0,
@@ -94,10 +89,9 @@ def coordinate_publisher():
 def init():
     global pozyx_coords, pozyx_coords_err, pozyx_sensors
     global ros_pose, ros_mag, ros_imu, local_device, lock
-    global height, algorithm, remote, serial_port, posehz, imuhz
+    global algorithm, remote, serial_port, posehz, imuhz
 
     rospy.init_node('pozyx_pose_node')
-    rospy.Subscriber("pozyx/height", Int16, height_cb)
 
     serial_port = rospy.get_param("port", pypozyx.get_serial_ports()[0].device)
     local_device = pypozyx.PozyxSerial(serial_port)
@@ -105,7 +99,6 @@ def init():
     # 0 is raw, 1 is fused but not yet implemented, 2 is filtered
     algorithm =  rospy.get_param("algorithm", 2) 
     remote =  rospy.get_param("remote", None)
-    height =  rospy.get_param("height", 100)
     posehz =  rospy.Rate(rospy.get_param("posehz", 2))
     imuhz =  rospy.Rate(rospy.get_param("imuhz", 100))
 
