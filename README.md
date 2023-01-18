@@ -1,6 +1,8 @@
 Pozyx ROS Package
 ====================
 
+> Due to the lack of hardware, this goes unmaintained.
+
 This package is made to simplify your life with the Pozyx system, using ROS. 
 
 I am not affiliated to Pozyx and therefore I do not have all the answers.
